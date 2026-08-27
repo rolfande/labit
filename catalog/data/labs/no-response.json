@@ -7,8 +7,8 @@
   "klassifisering": "grønn",
   "status": "planlagt",
   "beskrivelse": "dette er en test",
-  "oppgaver": "- [ ] Oppgave 1 — @ansvarlig\n- [ ] Oppgave 2 — @ansvarlig\n- [ ] Oppgave 3\n- [ ] og 4",
+  "oppgaver": "- [ ] Oppgave 1 — @ansvarlig\n- [x] Oppgave 2 — @ansvarlig\n- [ ] Oppgave 3\n- [ ] og 4",
   "createdDate": "2026-08-27T09:15:37.326Z",
-  "updatedDate": "2026-08-27T09:31:07.370Z",
+  "updatedDate": "2026-08-27T09:34:43.688Z",
   "sourceIssue": 3
 }
