@@ -1,63 +1,84 @@
-name: Register a lab
-description: Register a new secure lab setup and track its setup tasks.
+name: Registrer et laboratorium
+description: Registrer et nytt sikkert laboratorieoppsett og spor oppgavene som må gjøres.
 title: "[Lab] "
 labels: ["lab"]
 body:
   - type: input
-    id: location
+    id: forskningsgruppe
     attributes:
-      label: Location
-      placeholder: "Building A, Room 12"
+      label: Forskningsgruppe
+      description: Hvilken forskningsgruppe gjelder laboratoriet?
     validations:
       required: true
 
   - type: input
-    id: owner
+    id: kortnavn
     attributes:
-      label: Owner
-      description: Who is responsible for this lab
+      label: Kortnavn
+      description: Kort, gjenkjennelig navn på laboratoriet
     validations:
       required: true
 
   - type: input
-    id: requested-by
+    id: kontaktperson
     attributes:
-      label: Requested by
+      label: Kontaktperson
+      description: Hvem er kontaktperson for laboratoriet?
     validations:
-      required: false
+      required: true
+
+  - type: input
+    id: dataeier
+    attributes:
+      label: Dataeier
+      description: Hvem eier dataene som håndteres i laboratoriet?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: klassifisering
+    attributes:
+      label: Klassifisering
+      description: Dataklassifisering for laboratoriet
+      options:
+        - grønn
+        - gul
+        - rød
+    validations:
+      required: true
 
   - type: dropdown
     id: status
     attributes:
       label: Status
       options:
-        - planned
-        - in-progress
-        - completed
-        - on-hold
+        - planlagt
+        - pågår
+        - fullført
+        - på vent
       default: 0
     validations:
       required: true
 
   - type: textarea
-    id: description
+    id: beskrivelse
     attributes:
-      label: Description
-      description: What is this lab for / what data or systems does it touch?
+      label: Beskrivelse
+      description: Hva skal laboratoriet brukes til / hvilke data eller systemer berøres?
     validations:
       required: false
 
   - type: textarea
-    id: tasks
+    id: oppgaver
     attributes:
-      label: Setup tasks
+      label: Oppgaver
       description: >
-        One task per line as a GitHub checklist. Use `@username` to assign someone.
-        GitHub will show a live progress bar on this issue as boxes get checked.
+        Én oppgave per linje som en GitHub-sjekkliste. Bruk `@brukernavn` for å tildele noen.
+        GitHub viser fremdriften direkte på saken etter hvert som boksene hukes av.
       value: |
-        - [ ] Network segmentation (VLAN) — @assignee
-        - [ ] Firewall rules review — @assignee
-        - [ ] Endpoint hardening — @assignee
-        - [ ] Access control list setup — @assignee
+        - [ ] Nettverkssegmentering (VLAN) — @ansvarlig
+        - [ ] Gjennomgang av brannmurregler — @ansvarlig
+        - [ ] Herding av klienter — @ansvarlig
+        - [ ] Oppsett av tilgangskontroll — @ansvarlig
     validations:
       required: true
