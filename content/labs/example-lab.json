@@ -1,0 +1,40 @@
+{
+  "id": "example-lab",
+  "name": "Secure Lab Alpha",
+  "location": "Building A, Room 12",
+  "owner": "Jane Doe",
+  "requestedBy": "Research Group X",
+  "status": "in-progress",
+  "createdDate": "2026-08-01",
+  "description": "Isolated network segment for handling restricted research data.",
+  "tasks": [
+    {
+      "name": "Network segmentation (VLAN)",
+      "assignee": "Network Team",
+      "status": "done",
+      "dueDate": "2026-08-05",
+      "notes": ""
+    },
+    {
+      "name": "Firewall rules review",
+      "assignee": "Security Team",
+      "status": "in-progress",
+      "dueDate": "2026-08-15",
+      "notes": "Waiting on data classification confirmation."
+    },
+    {
+      "name": "Endpoint hardening",
+      "assignee": "Desktop Support",
+      "status": "todo",
+      "dueDate": "2026-08-20",
+      "notes": ""
+    },
+    {
+      "name": "Access control list setup",
+      "assignee": "Jane Doe",
+      "status": "todo",
+      "dueDate": "2026-08-25",
+      "notes": ""
+    }
+  ]
+}

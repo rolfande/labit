@@ -1,0 +1,100 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  color: #1a1a1a;
+  background: #f7f7f8;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: #1a1a2e;
+  color: white;
+}
+
+header a {
+  color: white;
+}
+
+header h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+main {
+  max-width: 900px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+
+.admin-link {
+  border: 1px solid white;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+table.labs-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.labs-table th,
+.labs-table td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.labs-table th {
+  background: #f0f0f2;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: white;
+  background: #888;
+}
+
+.badge-planned,
+.badge-todo {
+  background: #6c757d;
+}
+
+.badge-in-progress {
+  background: #d19a2c;
+}
+
+.badge-completed,
+.badge-done {
+  background: #2c9c53;
+}
+
+.badge-on-hold,
+.badge-blocked {
+  background: #c0392b;
+}
+
+.error {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+dl.meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1rem;
+}
+
+dl.meta dt {
+  font-weight: 600;
+  color: #555;
+}

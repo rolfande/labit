@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lab-IT Tracker</title>
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Lab-IT Tracker</h1>
+      <a class="admin-link" href="admin/">Admin</a>
+    </header>
+    <main>
+      <div id="status"></div>
+      <table id="labs-table" class="labs-table" hidden>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th>Tasks done</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </main>
+    <script src="assets/app.js"></script>
+    <script>renderLabList();</script>
+  </body>
+</html>

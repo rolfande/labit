@@ -1,0 +1,56 @@
+backend:
+  name: github
+  repo: OWNER/REPO # TODO: replace with your GitHub "owner/repo"
+  branch: main
+  base_url: https://YOUR-WORKER-SUBDOMAIN.workers.dev # TODO: replace with your Cloudflare Worker URL
+  auth_endpoint: auth
+
+media_folder: "content/uploads"
+public_folder: "/content/uploads"
+
+collections:
+  - name: "labs"
+    label: "Labs"
+    folder: "content/labs"
+    create: true
+    slug: "{{slug}}"
+    format: "json"
+    extension: "json"
+    identifier_field: name
+    fields:
+      - { label: "Lab Name", name: "name", widget: "string" }
+      - { label: "Location", name: "location", widget: "string", required: false }
+      - { label: "Owner", name: "owner", widget: "string" }
+      - { label: "Requested By", name: "requestedBy", widget: "string", required: false }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["planned", "in-progress", "completed", "on-hold"]
+        default: "planned"
+      - label: "Created Date"
+        name: "createdDate"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - label: "Tasks"
+        name: "tasks"
+        widget: "list"
+        summary: "{{fields.name}} — {{fields.status}}"
+        fields:
+          - { label: "Task", name: "name", widget: "string" }
+          - { label: "Assignee", name: "assignee", widget: "string", required: false }
+          - label: "Status"
+            name: "status"
+            widget: "select"
+            options: ["todo", "in-progress", "done", "blocked"]
+            default: "todo"
+          - label: "Due Date"
+            name: "dueDate"
+            widget: "datetime"
+            format: "YYYY-MM-DD"
+            date_format: "YYYY-MM-DD"
+            time_format: false
+            required: false
+          - { label: "Notes", name: "notes", widget: "text", required: false }
