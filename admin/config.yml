@@ -1,7 +1,7 @@
 backend:
   name: github
-  repo: OWNER/REPO # TODO: replace with your GitHub "owner/repo"
-  branch: main
+  repo: rolfande/labit # TODO: replace with your GitHub "owner/repo"
+  branch: master
   base_url: https://YOUR-WORKER-SUBDOMAIN.workers.dev # TODO: replace with your Cloudflare Worker URL
   auth_endpoint: auth
 
