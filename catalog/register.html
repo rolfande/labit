@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Labkatalog – Registrer / rediger</title>
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="index.html">Labkatalog</a></h1>
+    </header>
+    <main>
+      <p><a href="index.html">&larr; Tilbake til alle laboratorier</a></p>
+      <h2 id="form-title">Registrer nytt laboratorium</h2>
+      <p id="slug-hint" class="hint"></p>
+      <div id="status"></div>
+
+      <details class="token-box">
+        <summary>Tilgang (GitHub-token)</summary>
+        <p class="hint">
+          Lag en <em>fine-grained personal access token</em> på GitHub (Settings →
+          Developer settings → Personal access tokens → Fine-grained tokens), begrenset til
+          <strong>dette repoet</strong> med tillatelsen <strong>Contents: Read and write</strong>.
+          Tokenet lagres kun i denne nettleseren (localStorage) og sendes direkte til
+          <code>api.github.com</code> — aldri til noe annet sted. Sett en kort utløpsdato og
+          fjern/regenerer tokenet om du mistenker det er kompromittert.
+        </p>
+        <label for="gh-token">Personal access token</label>
+        <input type="password" id="gh-token" autocomplete="off" placeholder="github_pat_..." />
+        <div class="token-actions">
+          <button type="button" id="save-token">Lagre token</button>
+          <button type="button" id="clear-token" class="secondary">Fjern token</button>
+        </div>
+      </details>
+
+      <form id="lab-form" class="lab-form">
+        <label for="kortnavn">Kortnavn</label>
+        <input type="text" id="kortnavn" name="kortnavn" required />
+
+        <label for="forskningsgruppe">Forskningsgruppe</label>
+        <input type="text" id="forskningsgruppe" name="forskningsgruppe" required />
+
+        <label for="kontaktperson">Kontaktperson</label>
+        <input type="text" id="kontaktperson" name="kontaktperson" required />
+
+        <label for="dataeier">Dataeier</label>
+        <input type="text" id="dataeier" name="dataeier" required />
+
+        <label for="klassifisering">Klassifisering</label>
+        <select id="klassifisering" name="klassifisering" required>
+          <option value="grønn">grønn</option>
+          <option value="gul">gul</option>
+          <option value="rød">rød</option>
+        </select>
+
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+          <option value="planlagt">planlagt</option>
+          <option value="pågår">pågår</option>
+          <option value="fullført">fullført</option>
+          <option value="på vent">på vent</option>
+        </select>
+
+        <label for="beskrivelse">Beskrivelse</label>
+        <textarea id="beskrivelse" name="beskrivelse" rows="4"></textarea>
+
+        <label for="oppgaver">Oppgaver som må gjøres</label>
+        <textarea
+          id="oppgaver"
+          name="oppgaver"
+          rows="4"
+          placeholder="- [ ] Oppgave 1 — @ansvarlig"
+        ></textarea>
+
+        <button type="submit">Lagre</button>
+      </form>
+    </main>
+    <script src="assets/register.js"></script>
+    <script>initRegisterForm();</script>
+  </body>
+</html>

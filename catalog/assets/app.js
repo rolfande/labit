@@ -47,6 +47,7 @@ async function renderLabList() {
           <td>${escapeHtml(lab.dataeier)}</td>
           <td><span class="badge badge-klass-${escapeHtml(lab.klassifisering)}">${escapeHtml(lab.klassifisering)}</span></td>
           <td><span class="badge badge-status-${escapeHtml(lab.status?.replace(/\s+/g, "-"))}">${escapeHtml(lab.status)}</span></td>
+          <td><a href="register.html?id=${encodeURIComponent(lab.id)}">Rediger</a></td>
         </tr>`,
       )
       .join("");
@@ -83,9 +84,10 @@ async function renderLabDetail() {
         <dt>Status</dt><dd><span class="badge badge-status-${escapeHtml(lab.status?.replace(/\s+/g, "-"))}">${escapeHtml(lab.status)}</span></dd>
         <dt>Registrert</dt><dd>${escapeHtml(lab.createdDate)}</dd>
         <dt>Sist oppdatert</dt><dd>${escapeHtml(lab.updatedDate)}</dd>
-        <dt>Kilde-issue</dt><dd>#${escapeHtml(lab.sourceIssue)}</dd>
+        ${lab.sourceIssue != null ? `<dt>Kilde-issue</dt><dd>#${escapeHtml(lab.sourceIssue)}</dd>` : ""}
       </dl>
-      <p>${escapeHtml(lab.beskrivelse)}</p>`;
+      <p>${escapeHtml(lab.beskrivelse)}</p>
+      <p><a href="register.html?id=${encodeURIComponent(lab.id)}">Rediger denne oppføringen</a></p>`;
     detail.hidden = false;
   } catch (err) {
     setStatus(err.message, true);

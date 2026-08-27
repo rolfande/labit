@@ -1,0 +1,41 @@
+name: Rebuild lab catalog index
+
+# Keeps catalog/data/index.json in sync whenever a lab file changes, regardless of
+# whether it was written by the issue-based sync workflow or the register.html form
+# (which commits straight to catalog/data/labs/*.json via the GitHub Contents API).
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "catalog/data/labs/**.json"
+
+permissions:
+  contents: write
+
+jobs:
+  reindex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rebuild index.json
+        run: |
+          node -e '
+            const fs = require("fs");
+            const path = require("path");
+            const dir = "catalog/data/labs";
+            const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
+            const index = files
+              .map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")))
+              .sort((a, b) => a.kortnavn.localeCompare(b.kortnavn));
+            fs.writeFileSync("catalog/data/index.json", JSON.stringify(index, null, 2) + "\n");
+          '
+
+      - name: Commit index if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add catalog/data/index.json
+          git diff --cached --quiet || git commit -m "Catalog: rebuild index.json"
+          git push
