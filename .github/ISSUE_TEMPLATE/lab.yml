@@ -1,0 +1,63 @@
+name: Register a lab
+description: Register a new secure lab setup and track its setup tasks.
+title: "[Lab] "
+labels: ["lab"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      placeholder: "Building A, Room 12"
+    validations:
+      required: true
+
+  - type: input
+    id: owner
+    attributes:
+      label: Owner
+      description: Who is responsible for this lab
+    validations:
+      required: true
+
+  - type: input
+    id: requested-by
+    attributes:
+      label: Requested by
+    validations:
+      required: false
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: Status
+      options:
+        - planned
+        - in-progress
+        - completed
+        - on-hold
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is this lab for / what data or systems does it touch?
+    validations:
+      required: false
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Setup tasks
+      description: >
+        One task per line as a GitHub checklist. Use `@username` to assign someone.
+        GitHub will show a live progress bar on this issue as boxes get checked.
+      value: |
+        - [ ] Network segmentation (VLAN) — @assignee
+        - [ ] Firewall rules review — @assignee
+        - [ ] Endpoint hardening — @assignee
+        - [ ] Access control list setup — @assignee
+    validations:
+      required: true

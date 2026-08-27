@@ -2,7 +2,7 @@
 const GITHUB_OWNER = "rolfande";
 const GITHUB_REPO = "labit";
 const GITHUB_BRANCH = "master";
-const LABS_PATH = "content/labs";
+const LABS_PATH = "decap-cms/content/labs";
 
 const API_BASE = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}`;
 
