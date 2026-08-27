@@ -1,0 +1,109 @@
+name: Sync lab catalog from intake issue
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  sync-catalog:
+    if: contains(github.event.issue.labels.*.name, 'catalog')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/github-script@v7
+        id: build
+        with:
+          script: |
+            const fs = require("fs");
+            const path = require("path");
+
+            const body = context.payload.issue.body || "";
+
+            function field(heading) {
+              const m = body.match(new RegExp(`### ${heading}\\r?\\n\\r?\\n([\\s\\S]*?)(?=\\r?\\n### |$)`));
+              return m ? m[1].trim() : "";
+            }
+
+            function slugify(text) {
+              return text
+                .toLowerCase()
+                .replace(/æ/g, "ae")
+                .replace(/ø/g, "o")
+                .replace(/å/g, "aa")
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-+|-+$/g, "");
+            }
+
+            const updateSlugField = field("Oppdater eksisterende oppføring \\(valgfritt\\)");
+            const slug = slugify(updateSlugField || field("Kortnavn"));
+            if (!slug) {
+              core.setFailed("Could not determine a slug (Kortnavn) for this lab.");
+              return;
+            }
+
+            const labsDir = path.join(process.env.GITHUB_WORKSPACE, "catalog/data/labs");
+            fs.mkdirSync(labsDir, { recursive: true });
+
+            const filePath = path.join(labsDir, `${slug}.json`);
+            const isUpdate = fs.existsSync(filePath);
+            const existing = isUpdate ? JSON.parse(fs.readFileSync(filePath, "utf8")) : null;
+            const now = new Date().toISOString();
+
+            const lab = {
+              id: slug,
+              kortnavn: field("Kortnavn"),
+              forskningsgruppe: field("Forskningsgruppe"),
+              kontaktperson: field("Kontaktperson"),
+              dataeier: field("Dataeier"),
+              klassifisering: field("Klassifisering").toLowerCase(),
+              status: field("Status").toLowerCase(),
+              beskrivelse: field("Beskrivelse"),
+              createdDate: existing ? existing.createdDate : now,
+              updatedDate: now,
+              sourceIssue: context.issue.number,
+            };
+
+            fs.writeFileSync(filePath, JSON.stringify(lab, null, 2) + "\n");
+
+            const files = fs.readdirSync(labsDir).filter((f) => f.endsWith(".json"));
+            const index = files
+              .map((f) => JSON.parse(fs.readFileSync(path.join(labsDir, f), "utf8")))
+              .sort((a, b) => a.kortnavn.localeCompare(b.kortnavn));
+            fs.writeFileSync(
+              path.join(process.env.GITHUB_WORKSPACE, "catalog/data/index.json"),
+              JSON.stringify(index, null, 2) + "\n",
+            );
+
+            core.setOutput("slug", slug);
+            core.setOutput("is_update", isUpdate ? "true" : "false");
+
+      - name: Commit and push catalog changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add catalog/data
+          git diff --cached --quiet || git commit -m "Catalog: sync ${{ steps.build.outputs.slug }} from issue #${{ github.event.issue.number }}"
+          git push
+
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const slug = "${{ steps.build.outputs.slug }}";
+            const isUpdate = "${{ steps.build.outputs.is_update }}" === "true";
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: isUpdate
+                ? `Oppdatert i katalogen: \`catalog/data/labs/${slug}.json\`.`
+                : `Lagt til i katalogen: \`catalog/data/labs/${slug}.json\`.`,
+            });
+            await github.rest.issues.update({
+              ...context.repo,
+              issue_number: context.issue.number,
+              state: "closed",
+            });

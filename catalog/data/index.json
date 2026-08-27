@@ -1,0 +1,15 @@
+[
+  {
+    "id": "example-lab",
+    "kortnavn": "Example Lab",
+    "forskningsgruppe": "Research Group X",
+    "kontaktperson": "Jane Doe",
+    "dataeier": "Institutt for eksempler",
+    "klassifisering": "rød",
+    "status": "pågår",
+    "beskrivelse": "Isolert nettverkssegment for behandling av sensitive forskningsdata.",
+    "createdDate": "2026-08-01T09:00:00.000Z",
+    "updatedDate": "2026-08-27T09:00:00.000Z",
+    "sourceIssue": 0
+  }
+]

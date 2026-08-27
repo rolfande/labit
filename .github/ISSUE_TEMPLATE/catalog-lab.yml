@@ -1,0 +1,81 @@
+name: Registrer i katalogen
+description: Registrer eller oppdater metadata om et laboratorium i den maskinlesbare katalogen.
+title: "[Katalog] "
+labels: ["catalog"]
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Dette skjemaet skriver til den maskinlesbare labkatalogen (JSON), ikke til
+        oppgavesporingen. En GitHub Action leser svarene og oppdaterer
+        `catalog/data/` automatisk — denne saken lukkes deretter automatisk.
+
+  - type: input
+    id: kortnavn
+    attributes:
+      label: Kortnavn
+      description: Kort, unikt navn på laboratoriet. Brukes som id i katalogen.
+    validations:
+      required: true
+
+  - type: input
+    id: oppdater-slug
+    attributes:
+      label: Oppdater eksisterende oppføring (valgfritt)
+      description: >
+        Bare fyll ut hvis du oppdaterer en eksisterende katalogoppføring — skriv inn
+        dens nåværende id/slug (se catalog/data/labs/). La stå tomt for en ny registrering.
+    validations:
+      required: false
+
+  - type: input
+    id: forskningsgruppe
+    attributes:
+      label: Forskningsgruppe
+    validations:
+      required: true
+
+  - type: input
+    id: kontaktperson
+    attributes:
+      label: Kontaktperson
+    validations:
+      required: true
+
+  - type: input
+    id: dataeier
+    attributes:
+      label: Dataeier
+    validations:
+      required: true
+
+  - type: dropdown
+    id: klassifisering
+    attributes:
+      label: Klassifisering
+      options:
+        - grønn
+        - gul
+        - rød
+    validations:
+      required: true
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: Status
+      options:
+        - planlagt
+        - pågår
+        - fullført
+        - på vent
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: beskrivelse
+    attributes:
+      label: Beskrivelse
+    validations:
+      required: false
