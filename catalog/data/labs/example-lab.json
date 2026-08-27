@@ -7,6 +7,7 @@
   "klassifisering": "rød",
   "status": "pågår",
   "beskrivelse": "Isolert nettverkssegment for behandling av sensitive forskningsdata.",
+  "oppgaver": "- [ ] Nettverkssegmentering (VLAN)\n- [ ] Gjennomgang av brannmurregler\n- [ ] Herding av klienter",
   "createdDate": "2026-08-01T09:00:00.000Z",
   "updatedDate": "2026-08-27T09:00:00.000Z",
   "sourceIssue": 0

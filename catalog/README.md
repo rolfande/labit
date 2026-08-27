@@ -48,6 +48,7 @@ Each file in [data/labs/](data/labs/example-lab.json):
   "klassifisering": "rød | gul | grønn",
   "status": "planlagt | pågår | fullført | på vent",
   "beskrivelse": "...",
+  "oppgaver": "markdown checklist as string (optional)",
   "createdDate": "ISO 8601 timestamp",
   "updatedDate": "ISO 8601 timestamp",
   "sourceIssue": 123

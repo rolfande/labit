@@ -64,6 +64,7 @@ jobs:
               klassifisering: field("Klassifisering").toLowerCase(),
               status: field("Status").toLowerCase(),
               beskrivelse: field("Beskrivelse"),
+              oppgaver: field("Oppgaver som må gjøres") || "",
               createdDate: existing ? existing.createdDate : now,
               updatedDate: now,
               sourceIssue: context.issue.number,
@@ -102,9 +103,4 @@ jobs:
               body: isUpdate
                 ? `Oppdatert i katalogen: \`catalog/data/labs/${slug}.json\`.`
                 : `Lagt til i katalogen: \`catalog/data/labs/${slug}.json\`.`,
-            });
-            await github.rest.issues.update({
-              ...context.repo,
-              issue_number: context.issue.number,
-              state: "closed",
             });

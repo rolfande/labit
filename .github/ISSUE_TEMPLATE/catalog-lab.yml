@@ -79,3 +79,16 @@ body:
       label: Beskrivelse
     validations:
       required: false
+
+  - type: textarea
+    id: oppgaver
+    attributes:
+      label: Oppgaver som må gjøres
+      description: >
+        Én oppgave per linje som en GitHub-sjekkliste. Bruk `@brukernavn` for å tildele noen.
+        GitHub viser fremdriften direkte på saken etter hvert som boksene hukes av.
+      value: |
+        - [ ] Oppgave 1 — @ansvarlig
+        - [ ] Oppgave 2 — @ansvarlig
+    validations:
+      required: false
